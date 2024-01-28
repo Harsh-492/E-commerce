@@ -62,7 +62,7 @@ class Product(models.Model):
 
     def __str__(self):
         return str(self.id)
-
+ 
 
 class Cart(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
@@ -72,12 +72,15 @@ class Cart(models.Model):
     def __str__(self):
         return str(self.id)
 
+    @property # for checkout page
+    def total_cost(self):
+        return self.quantity*self.product.discounted_price
 
 STATUS_CHOICES = (
     ('Accepted','Accepted'),
     ('Packed','Packed'),
     ('On The Way','On The Way'),
-    ('Cancel','Cancel'),
+    ('Delivered','Delivered'),
 )
 
 
@@ -88,4 +91,8 @@ class OrderPlaced(models.Model):
     quantity = models.PositiveIntegerField(default=1)
     ordered_date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=50,choices=STATUS_CHOICES,default='Panding')
+
+    @property # for orderplace page
+    def total_cost(self):
+        return self.quantity*self.product.discounted_price
     

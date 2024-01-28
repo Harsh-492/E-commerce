@@ -5,12 +5,12 @@
 <div class="container">
  <div class="row my-3">
   <div class="col-sm-6 offset-sm-3">
-   <h3>Customer Registration</h3>
+   <center><h3>Customer Registration</h3></center> 
    <hr>
 
    <form action="" method="post" novalidate class="shadow p-5">
-      {% if messages %}
-      {% for message in messages %}
+      {% if messages %}{% comment %} # multiple msg ke liye humne for loop use ki html file me {% endcomment %}
+      {% for message in messages %} {% comment %} # message.tag return class in  this case it return success {% endcomment %}
          <p {% if message.tags %} class="alert alert-{{message.tags}} mb-5" {% endif %}>{{message}}</p>
       {% endfor %}
       {% endif %}
